@@ -2,9 +2,7 @@ version: '3.9'
 
 services:
   backend:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
+    build: .
     image: omnichannel_backend:latest
     container_name: omnichannel_backend
     restart: unless-stopped

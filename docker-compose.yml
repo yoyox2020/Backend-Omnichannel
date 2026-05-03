@@ -1,36 +1,23 @@
 version: '3.9'
 
 services:
-  postgres:
-    image: postgres:16-alpine
-    container_name: omnichannel_db
+  backend:
+    build: .
+    image: omnichannel_backend:latest
+    container_name: omnichannel_backend
     restart: unless-stopped
+    ports:
+      - "3001:3001"
     environment:
-      POSTGRES_USER: itsm_user
-      POSTGRES_PASSWORD: "Pakubumi2020#"
-      POSTGRES_DB: itsm_ai
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./docker/init:/docker-entrypoint-initdb.d:ro
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U itsm_user -d itsm_ai"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-
-  redis:
-    image: redis:7-alpine
-    container_name: omnichannel_redis
-    restart: unless-stopped
-    ports:
-      - "6379:6379"
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
-
-volumes:
-  postgres_data:
+      API_PORT: 3001
+      DB_HOST: host.docker.internal
+      DB_PORT: 5432
+      DB_USER: itsm_user
+      DB_PASSWORD: "Pakubumi2020#"
+      DB_NAME: itsm_ai
+      DB_SYNCHRONIZE: 'false'
+      DB_LOGGING: 'false'
+      JWT_SECRET: "replace_with_a_secret"
+      JWT_REFRESH_SECRET: "replace_with_a_refresh_secret"
+      CORS_ORIGIN: "http://localhost:3000"
+      NODE_ENV: production

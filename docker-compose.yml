@@ -10,7 +10,8 @@ services:
       - "3001:3001"
     environment:
       API_PORT: 3001
-      DB_HOST: host.docker.internal
+      API_URL: "http://72.60.76.222:3001"
+      DB_HOST: 72.60.76.222
       DB_PORT: 5432
       DB_USER: itsm_user
       DB_PASSWORD: "Pakubumi2020#"

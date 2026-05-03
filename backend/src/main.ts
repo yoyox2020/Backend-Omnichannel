@@ -40,7 +40,8 @@ async function bootstrap() {
   const port = parseInt(process.env.API_PORT ?? '3001', 10);
   await app.listen(port);
 
-  logger.log(`Application is running on http://localhost:${port}/api/v1`);
+  const apiUrl = process.env.API_URL ?? `http://localhost:${port}`;
+  logger.log(`Application is running on ${apiUrl}/api/v1`);
 }
 
 bootstrap().catch((err: unknown) => {
